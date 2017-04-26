@@ -12,12 +12,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.IOException;
 import java.awt.GridBagConstraints;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
-public class Activity3_EchoClientGui extends JFrame {
+public class Activity4_EchoClientGui extends JFrame implements WindowListener{
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -33,9 +36,9 @@ public class Activity3_EchoClientGui extends JFrame {
 			public void run() 
 			{
 				try {
-					Activity3_EchoClientGui frame = new Activity3_EchoClientGui();
+					Activity4_EchoClientGui frame = new Activity4_EchoClientGui();
 					frame.setVisible(true);
-					Activity3_EchoClient client = new Activity3_EchoClient();
+					Activity4_EchoClient client = new Activity4_EchoClient();
 			        
 			        Thread thread = new Thread(client);
 			        
@@ -50,7 +53,7 @@ public class Activity3_EchoClientGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Activity3_EchoClientGui() {
+	public Activity4_EchoClientGui() {
 		setTitle("Client");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 254);
@@ -61,13 +64,15 @@ public class Activity3_EchoClientGui extends JFrame {
 		
 		JButton btnNewButton = new JButton("Close");
 		btnNewButton.setBounds(333, 5, 96, 23);
-		btnNewButton.addActionListener(new ActionListener() {
-
+		btnNewButton.addActionListener(new ActionListener() 
+		{
 	        public void actionPerformed(ActionEvent e)
 	        {
-	        	//close connection chuchu..
+	        	System.out.println("\n* Closing connection... *");
+				Activity4_EchoClient.Close();
+				System.exit(1);
 	        }
-	    });
+		});
 		contentPane.add(btnNewButton);
 		
 		textField = new JTextField();
@@ -81,7 +86,7 @@ public class Activity3_EchoClientGui extends JFrame {
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
 					JTextField textField = (JTextField) e.getSource();
 			        String text = textField.getText();
-			        Activity3_EchoClient.GetUserInput(text);
+			        Activity4_EchoClient.GetUserInput(text);
 			        textField.setText("");
                 }       
 		    }
@@ -106,4 +111,26 @@ public class Activity3_EchoClientGui extends JFrame {
 			}
 		});
 	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+				try 
+				{
+					Activity4_EchoClient.Close();
+					System.exit(1);
+				}
+				catch(Exception eClose) 
+				{
+					System.exit(1);
+				}
+				// dispose the frame
+				dispose();		
+	}
+
+	public void windowClosed(WindowEvent e) {}
+	public void windowOpened(WindowEvent e) {}
+	public void windowIconified(WindowEvent e) {}
+	public void windowDeiconified(WindowEvent e) {}
+	public void windowActivated(WindowEvent e) {}
+	public void windowDeactivated(WindowEvent e) {}
 }

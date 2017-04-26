@@ -1,4 +1,5 @@
 package Week3Challenge;
+import java.awt.EventQueue;
 //TCP Echo Server
 //Kenneth Llanto
 //u3161446
@@ -9,16 +10,17 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class Activity4_EchoServer implements Runnable
+public class Activity3_EchoServer implements Runnable
 {
 	private static ServerSocket servSock;
 	private static final int PORT = 1234;
+	public static Socket link;
 	
 	@Override
 	public void run() 
 	{
 		System.out.println("Opening port...\n");
-		Activity4_EchoServerGui.UpdateText("Opening port...\n");
+		Activity3_EchoServerGui.UpdateText("Opening port...\n");
 		try
 		{
 			servSock = new ServerSocket(PORT); //Step 1.
@@ -36,7 +38,7 @@ public class Activity4_EchoServer implements Runnable
 	
 	private static void handleClient()
 	{
-		Socket link = null; //Step 2.
+		link = null; //Step 2.
 		try
 		{
 			link = servSock.accept(); //Step 2.
@@ -47,7 +49,7 @@ public class Activity4_EchoServer implements Runnable
 			while (!message.equals("***CLOSE***"))
 			{
 				System.out.println("Message received.");
-				Activity4_EchoServerGui.UpdateText("Message received.");
+				Activity3_EchoServerGui.UpdateText("Message received.");
 				numMessages++;
 				output.println("Message " + numMessages + ": " + message); //Step 4.
 				message = input.nextLine();
@@ -64,7 +66,7 @@ public class Activity4_EchoServer implements Runnable
 			try
 			{
 				System.out.println("\n* Closing connection... *");
-				Activity4_EchoServerGui.UpdateText("\n* Closing connection... *");
+				Activity3_EchoServerGui.UpdateText("\n* Closing connection... *");
 				link.close(); //Step 5.
 				servSock.close();
 			}
@@ -75,5 +77,23 @@ public class Activity4_EchoServer implements Runnable
 			}
 			
 		}
+	}
+	public static void Close() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try
+				{
+					System.out.println("\n* Closing connection... *");
+					Activity3_EchoServerGui.UpdateText("\n* Closing connection... *");
+					link.close(); //Step 5.
+					servSock.close();
+				}
+				catch(IOException ioEx)
+				{
+					System.out.println("Unable to disconnect!");
+					System.exit(1);
+				}
+			}
+		});
 	}
 }

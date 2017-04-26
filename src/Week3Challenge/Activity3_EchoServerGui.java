@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,10 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
-public class Activity4_EchoServerGui extends JFrame {
+public class Activity3_EchoServerGui extends JFrame implements WindowListener{
 
 	private JPanel contentPane;
-	private static Activity4_EchoServer server;
+	private static Activity3_EchoServer server;
 	private static Thread thread;
 	private static JTextArea textArea;
 	/**
@@ -29,10 +31,9 @@ public class Activity4_EchoServerGui extends JFrame {
 			{
 				try 
 				{
-					Activity4_EchoServerGui frame = new Activity4_EchoServerGui();
+					Activity3_EchoServerGui frame = new Activity3_EchoServerGui();
 					frame.setVisible(true);
-					server = new Activity4_EchoServer();
-			        
+					server = new Activity3_EchoServer();  
 			        thread = new Thread(server);
 				} 
 				catch (Exception e) 
@@ -46,7 +47,7 @@ public class Activity4_EchoServerGui extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Activity4_EchoServerGui() {
+	public Activity3_EchoServerGui() {
 		setTitle("ChatServer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -87,4 +88,29 @@ public class Activity4_EchoServerGui extends JFrame {
 		});
 	}
 
+	@Override
+	public void windowClosing(WindowEvent e) {
+				if(server != null) {
+					try 
+					{
+						Activity3_EchoServer.link = null; 
+						System.exit(0);
+					}
+					catch(Exception eClose) 
+					{
+						System.exit(1);
+					}
+					server = null;
+				}
+				// dispose the frame
+				dispose();
+				System.exit(0);	
+	}
+
+	public void windowClosed(WindowEvent e) {}
+	public void windowOpened(WindowEvent e) {}
+	public void windowIconified(WindowEvent e) {}
+	public void windowDeiconified(WindowEvent e) {}
+	public void windowActivated(WindowEvent e) {}
+	public void windowDeactivated(WindowEvent e) {}
 }
