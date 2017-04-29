@@ -1,4 +1,4 @@
-package Week3Challenge;
+package Week4Challenge;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
-public class Activity4_EchoClientGui extends JFrame implements WindowListener{
+public class UDPEchoClientGUI extends JFrame implements WindowListener{
 
 	private JPanel contentPane;
 	private JTextField textField;
@@ -36,9 +36,9 @@ public class Activity4_EchoClientGui extends JFrame implements WindowListener{
 			public void run() 
 			{
 				try {
-					Activity4_EchoClientGui frame = new Activity4_EchoClientGui();
+					UDPEchoClientGUI frame = new UDPEchoClientGUI();
 					frame.setVisible(true);
-					Activity4_EchoClient client = new Activity4_EchoClient();
+					UDPEchoClient client = new UDPEchoClient();
 			        
 			        Thread thread = new Thread(client);
 			        
@@ -53,8 +53,8 @@ public class Activity4_EchoClientGui extends JFrame implements WindowListener{
 	/**
 	 * Create the frame.
 	 */
-	public Activity4_EchoClientGui() {
-		setTitle("Client");
+	public UDPEchoClientGUI() {
+		setTitle("UDP Client");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 554);
 		contentPane = new JPanel();
@@ -68,9 +68,8 @@ public class Activity4_EchoClientGui extends JFrame implements WindowListener{
 		{
 	        public void actionPerformed(ActionEvent e)
 	        {
-	        	textArea.append("\n* Closing connection... *");
 	        	System.out.println("\n* Closing connection... *");
-				Activity4_EchoClient.Close();
+				UDPEchoClient.Close();
 				System.exit(1);
 	        }
 		});
@@ -87,7 +86,7 @@ public class Activity4_EchoClientGui extends JFrame implements WindowListener{
 				if(e.getKeyCode() == KeyEvent.VK_ENTER){
 					JTextField textField = (JTextField) e.getSource();
 			        String text = textField.getText();
-			        Activity4_EchoClient.GetUserInput(text);
+			        UDPEchoClient.GetUserInput(text);
 			        textField.setText("");
                 }       
 		    }
@@ -117,7 +116,7 @@ public class Activity4_EchoClientGui extends JFrame implements WindowListener{
 	public void windowClosing(WindowEvent e) {
 				try 
 				{
-					Activity4_EchoClient.Close();
+					UDPEchoClient.Close();
 					System.exit(1);
 				}
 				catch(Exception eClose) 

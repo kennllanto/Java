@@ -27,6 +27,7 @@ public class Activity3_EchoServer implements Runnable
 		}
 		catch(IOException ioEx)
 		{
+			Activity3_EchoServerGui.UpdateText("Unable to attach to port!");
 			System.out.println("Unable to attach to port!");
 			System.exit(1);
 		}
@@ -54,6 +55,7 @@ public class Activity3_EchoServer implements Runnable
 				output.println("Message " + numMessages + ": " + message); //Step 4.
 				message = input.nextLine();
 			}
+				Activity3_EchoServerGui.UpdateText(numMessages + " messages received.");
 				output.println(numMessages + " messages received.");//Step 4.
 				input.close();
 		}

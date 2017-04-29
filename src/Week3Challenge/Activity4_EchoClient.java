@@ -22,6 +22,7 @@ public class Activity4_EchoClient implements Runnable
 		}
 		catch(UnknownHostException uhEx)
 		{
+			Activity4_EchoClientGui.UpdateText("Host ID not found!");
 			System.out.println("Host ID not found!");
 			System.exit(1);
 		}
@@ -57,17 +58,20 @@ public class Activity4_EchoClient implements Runnable
 		}
 		catch(Exception e)
 		{
+			Activity4_EchoClientGui.UpdateText("Error connectiong to server:" + e);
 			System.out.print("Error connectiong to server:" + e);
 		}
 		finally
 		{
 			try
 			{
+				Activity4_EchoClientGui.UpdateText("\n* Closing connection... *");
 				System.out.println("\n* Closing connection... *");
 				link.close(); //Step 4.
 			}
 			catch(IOException ioEx)
 			{
+				Activity4_EchoClientGui.UpdateText("Unable to disconnect!");
 				System.out.println("Unable to disconnect!");
 				System.exit(1);
 			}
@@ -93,11 +97,13 @@ public class Activity4_EchoClient implements Runnable
 			public void run() {
 				try
 				{
+					Activity4_EchoClientGui.UpdateText("\n* Closing connection... *");
 					System.out.println("\n* Closing connection... *");
 					link.close(); //Step 4.
 				}
 				catch(IOException ioEx)
 				{
+					Activity4_EchoClientGui.UpdateText("Unable to disconnect!");
 					System.out.println("Unable to disconnect!");
 					System.exit(1);
 				}

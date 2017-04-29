@@ -1,4 +1,4 @@
-package Week3Challenge;
+package Week4Challenge;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -14,10 +14,10 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
-public class Activity3_EchoServerGui extends JFrame implements WindowListener{
+public class UDPEchoServerGUI extends JFrame implements WindowListener{
 
 	private JPanel contentPane;
-	private static Activity3_EchoServer server;
+	private static UDPEchoServer server;
 	private static Thread thread;
 	private static JTextArea textArea;
 	/**
@@ -31,9 +31,9 @@ public class Activity3_EchoServerGui extends JFrame implements WindowListener{
 			{
 				try 
 				{
-					Activity3_EchoServerGui frame = new Activity3_EchoServerGui();
+					UDPEchoServerGUI frame = new UDPEchoServerGUI();
 					frame.setVisible(true);
-					server = new Activity3_EchoServer();  
+					server = new UDPEchoServer();  
 			        thread = new Thread(server);
 				} 
 				catch (Exception e) 
@@ -47,8 +47,8 @@ public class Activity3_EchoServerGui extends JFrame implements WindowListener{
 	/**
 	 * Create the frame.
 	 */
-	public Activity3_EchoServerGui() {
-		setTitle("ChatServer");
+	public UDPEchoServerGUI() {
+		setTitle("UDP ChatServer");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -94,7 +94,7 @@ public class Activity3_EchoServerGui extends JFrame implements WindowListener{
 				if(server != null) {
 					try 
 					{
-						Activity3_EchoServer.link = null; 
+						UDPEchoServer.datagramSocket.close(); 
 						System.exit(0);
 					}
 					catch(Exception eClose) 
